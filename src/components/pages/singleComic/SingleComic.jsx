@@ -1,13 +1,24 @@
-import './singleComic.scss';
+import React from 'react';
+import {Helmet} from 'react-helmet';
 
-import React from 'react'
+import './singleComic.scss';
 
 const SingleComic = ({data}) => {
     const {title, description, language, thumbnail, pageCount, price} = data;
 
     return (
         <>
-            <img src={thumbnail} alt={title} className="single-comic__img"/>
+            <Helmet>
+                <meta
+                    name="description"
+                    content={`${title} comic page`}
+                />
+                <title>{title + ` page`}</title>
+            </Helmet>
+            <img src={thumbnail} 
+                alt={title} 
+                className="single-comic__img"
+                style={{objectFit: thumbnail.includes('image_not_available.jpg') ? 'fill' : ''}}/>
             <div className="single-comic__info">
                 <h2 className="single-comic__name">{title}</h2>
                 <p className="single-comic__descr">{description}</p>

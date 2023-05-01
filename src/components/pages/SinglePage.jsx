@@ -61,7 +61,7 @@ const SinglePage = ({Component}) => {
 
     const errorMsg = error ? <ErrorMessage>{back()}</ErrorMessage> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(error || loading) ? 
+    const content = !(error || loading) && data.id ? 
         <div className="single">
             <Component data={data}/>
             {back()}
