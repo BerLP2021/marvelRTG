@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet, useLocation, useMatches } from 'react-router-dom';
+import { useLocation, useMatches, useOutlet } from 'react-router-dom';
 
 import AppHeader from '../appHeader/AppHeader';
 import Spinner from '../spinner/Spinner';
@@ -12,17 +12,19 @@ import { CSSTransition, SwitchTransition, } from 'react-transition-group';
 export const Layout = () => {
   const location = useLocation();
   const matches = useMatches();
-  
+  const currentOutlet = useOutlet()
+
   return (
         <div className="app">
             <AppHeader/>
             <main>
               <SwitchTransition>
                 <CSSTransition
+                 location={location}
                   key={location.pathname}
                   timeout={{
                     enter: 500,
-                    exit: 300,
+                    exit: 0,
                    }}
                   classNames="page"
                   unmountOnExit
@@ -30,14 +32,14 @@ export const Layout = () => {
                   {(state) => (
                     <div className="page">
                       <React.Suspense fallback={<Spinner />}>
-                        <Outlet />
+                        {currentOutlet}
                       </React.Suspense>
                     </div>
-                  )}
+                  )} 
                 </CSSTransition>
-              </SwitchTransition>  
+              </SwitchTransition>
             </main>
-                {matches[1].id !== '0-3'? <img className="bg-decoration" src={vision} alt="vision"/> : null}
+              {matches[1].id !== '0-4'? <img className="bg-decoration" src={vision} alt="vision"/> : null}
         </div>
   )
 }

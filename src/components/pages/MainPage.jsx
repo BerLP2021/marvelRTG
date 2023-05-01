@@ -4,6 +4,7 @@ import RandomChar from '../randomChar/RandomChar';
 import CharList from '../charList/CharList';
 import CharInfo from '../charInfo/CharInfo';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary';
+import { SearchForm } from '../searchForm/SearchForm';
 
 import '../../style/style.scss';
 
@@ -23,9 +24,15 @@ const MainPage = () => {
                 <ErrorBoundary>
                     <CharList getRandomChar={getRandomChar}/>
                 </ErrorBoundary>
-                <ErrorBoundary>
-                    <CharInfo randomCharId={randomCharId}/>
-                </ErrorBoundary>
+                <div className='sticky-block'>
+                    <ErrorBoundary>
+                        <CharInfo randomCharId={randomCharId}/>
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <SearchForm />
+                    </ErrorBoundary>
+                </div>
+                
             </div>
         </div>
     )

@@ -2,18 +2,17 @@ import { lazy } from 'react';
 import { RouterProvider, createBrowserRouter, } from 'react-router-dom';
 
 import { Layout } from '../layout/Layout';
-
-import './App.scss';
 import MainPage from '../pages/MainPage';
-// import ComicsPage  from '../pages/ComicsPage';
-// import Page404 from '../pages/404';
-// import SingleComicPage from '../pages/SingleComicPage';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
-// const MainPage = lazy(() => import('../pages/MainPage'));
+import './App.scss';
+
 const ComicsPage = lazy(() => import('../pages/ComicsPage'));
+const SinglePage = lazy(() => import('../pages/SinglePage'));
+const SingleChar = lazy(() => import('../pages/singleChar/SingleChar'));
+const SingleComic = lazy(() => import('../pages/singleComic/SingleComic'));
 const Page404 = lazy(() => import('../pages/404'));
-const SingleComicPage = lazy(() => import('../pages/SingleComicPage'));
+
 
 const App = () => {
   const router = createBrowserRouter([{
@@ -32,7 +31,12 @@ const App = () => {
       },
       {
         path: "/comics/:comicId",
-        element: <SingleComicPage />,
+        element: <SinglePage Component={SingleComic} />,
+        // lazy: () => import('../pages/SingleComicPage'),
+      },
+      {
+        path: "/characters/:charId",
+        element: <SinglePage Component={SingleChar} />,
         // lazy: () => import('../pages/SingleComicPage'),
       },
       {

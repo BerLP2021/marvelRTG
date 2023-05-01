@@ -22,7 +22,7 @@ const CharInfo = ({randomCharId}) => {
         setInProp(true);
     }
 
-    const updateChar = () => {
+    const updateChar = (randomCharId) => {
         if (!randomCharId) return;
         setInProp(false);
         clearError();
@@ -31,13 +31,12 @@ const CharInfo = ({randomCharId}) => {
     }
 
     useEffect(() => {
-        updateChar();
+        updateChar(randomCharId);
     }, [randomCharId]);
 
     const skeleton = !randomCharId ? <Skeleton/> : null;
     const errorMsg = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = randomCharId && !loading && !error ? <View char={char}/> : null ;
 
     return (
         <>
@@ -46,7 +45,6 @@ const CharInfo = ({randomCharId}) => {
                 {skeleton}
                 {spinner}
                 <CSSTransition in={inProp} timeout={duration} classNames="char" unmountOnExit>
-                    {/* {content} */}
                     <View char={char}/> 
                 </CSSTransition>
             </div>

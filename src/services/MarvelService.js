@@ -8,25 +8,30 @@ const useMarvelService = () => {
 
     const getAllCharacters = async (offset = _baseOffset, limit = 9) => {
         const res = await getResource(`${_apiBase}characters?limit=${limit}&offset=${offset}&${_apiKey}`);
-        return res.data.results.map(_tranformCharacter);
+        return res.data.results.map(_transformCharacter);
     }
 
     const getAllComics = async (offset = 0, limit = 8) => {
         const res = await getResource(`${_apiBase}comics?orderBy=issueNumber&limit=${limit}&offset=${offset}&${_apiKey}`);
-        return res.data.results.map(_tranformComics);
+        return res.data.results.map(_transformComics);
     }
     
     const getCharacter = async (id) => {
         const res = await getResource(`${_apiBase}characters/${id}?${_apiKey}`);
-        return  _tranformCharacter(res.data.results[0]);
+        return  _transformCharacter(res.data.results[0]);
+    }
+
+    const getCharacterByName = async (name) => {
+        let res = await getResource(`${_apiBase}characters?nameStartsWith=${name}&${_apiKey}`);
+        return res.data.results.map(_transformCharacter);
     }
 
     const getComic = async (id) => {
         const res = await getResource(`${_apiBase}comics/${id}?${_apiKey}`);
-        return  _tranformComics(res.data.results[0]);
+        return  _transformComics(res.data.results[0]);
     }
     
-    const _tranformComics = (comic) => {
+    const _transformComics = (comic) => {
         return {
             id: comic.id,
             title: comic.title,
@@ -38,7 +43,7 @@ const useMarvelService = () => {
         }
     }
 
-    const _tranformCharacter = (char) => {
+    const _transformCharacter = (char) => {
         return {
             id: char.id,
             name: char.name,
@@ -49,7 +54,7 @@ const useMarvelService = () => {
             wiki: char.urls[1].url
         }
     }
-    return {loading, blockBtn, error, clearError, getAllCharacters, getCharacter, getAllComics, getComic}
+    return {loading, blockBtn, error, clearError, getAllCharacters, getCharacterByName, getCharacter, getAllComics, getComic}
 }
 
 export default useMarvelService;
